@@ -3,8 +3,7 @@ local springboot_nvim_ui = require("springboot-nvim.ui.springboot_nvim_ui")
 require("create_springboot_project")
 
 local lspconfig = require("lspconfig")
-local clients = vim.lsp.get_active_clients({ name = 'jdtls' })
-local jdtls = clients[1]
+local jdtls = require('java-core.ls.clients.jdtls-client')(get_client())
 
 local function incremental_compile()
 	jdtls.compile("incremental")
