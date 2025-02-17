@@ -3,6 +3,18 @@ local springboot_nvim_ui = require("springboot-nvim.ui.springboot_nvim_ui")
 require("create_springboot_project")
 
 local lspconfig = require("lspconfig")
+local function get_client()
+	local clients = vim.lsp.get_clients({ name = 'jdtls' })
+
+	if #clients < 1 then
+		local message = string.format('No jdtls client found to instantiate class')
+		require('java-core.utils.notify').error(message)
+		require('java.utils.log').error(message)
+		error(message)
+	end
+
+	return clients[1]
+end
 local jdtls = require('java-core.ls.clients.jdtls-client')(get_client())
 
 local function incremental_compile()
